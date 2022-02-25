@@ -25,13 +25,26 @@ const App = () => {
   }
 
   // Add Task
-  const addTask = (task) => {
-    const id = Math.floor(Math.random() * 1000) + 1
+  const addTask = async (task) => {
+    const res = await fetch('http://localhost:3001/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(task),
+    })
 
-    console.log(id)
+    const data = await res.json()
 
-    const newTask = { id, ...task }
-    setTasks([...tasks, newTask])
+    setTasks([...tasks, data])
+
+
+    // const id = Math.floor(Math.random() * 1000) + 1
+
+    // console.log(id)
+
+    // const newTask = { id, ...task }
+    // setTasks([...tasks, newTask])
   }
 
   // Delete task
